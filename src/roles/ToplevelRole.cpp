@@ -1,7 +1,29 @@
 #include <LCursor.h>
-#include "../Output.h"
-#include "../Surface.h"
+#include <LOutput.h>
 #include "ToplevelRole.h"
+#include "../Surface.h"
+#include "../utils/Settings.h"
+
+ToplevelRole::ToplevelRole(const void *params) noexcept : LToplevelRole(params)
+{
+    moveSession().setOnBeforeUpdateCallback([](LToplevelMoveSession *session)
+    {
+        LMargins constraints { session->toplevel()->calculateConstraintsFromOutput(cursor()->output()) };
+        session->setConstraints(constraints);
+    });
+
+    resizeSession().setOnBeforeUpdateCallback([](LToplevelResizeSession *session)
+    {
+        LMargins constraints { session->toplevel()->calculateConstraintsFromOutput(cursor()->output()) };
+        session->setConstraints(constraints);
+    });
+}
+
+const LPoint &ToplevelRole::rolePos() const
+{
+    m_rolePos = surface()->pos() - windowGeometry().topLeft() + LPoint(extraGeometry().left, extraGeometry().top);
+    return m_rolePos;
+}
 
 void ToplevelRole::configureRequest()
 {
@@ -88,7 +110,7 @@ void ToplevelRole::atomsChanged(LBitset<AtomChanges> changes, const Atoms &prev)
     if (changes.check(DecorationModeChanged))
     {
         if (decorationMode() == ServerSide)
-            ssd = std::make_unique<ToplevelDecorationView>(this);
+            ssd = std::make_unique<SSD>(this);
         else
             ssd.reset();
     }

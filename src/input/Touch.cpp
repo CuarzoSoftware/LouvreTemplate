@@ -1,7 +1,8 @@
 #include <LCursor.h>
 #include <LTouchDownEvent.h>
 #include <LTouchMoveEvent.h>
-#include "../Global.h"
+#include "../utils/Global.h"
+#include "../utils/Settings.h"
 #include "../scene/Scene.h"
 #include "Touch.h"
 
@@ -20,7 +21,7 @@ void Touch::touchDownEvent(const LTouchDownEvent &event)
         return;
 
     const LPointF globalPos { toGlobal(activeOutput, event.pos()) };
-    G::scene().handleTouchDownEvent(event, globalPos, SCENE_EVENT_OPTIONS);
+    G::scene().handleTouchDownEvent(event, globalPos, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Touch::touchMoveEvent(const LTouchMoveEvent &event)
@@ -31,20 +32,20 @@ void Touch::touchMoveEvent(const LTouchMoveEvent &event)
         return;
 
     const LPointF globalPos { toGlobal(activeOutput, event.pos()) };
-    G::scene().handleTouchMoveEvent(event, globalPos, SCENE_EVENT_OPTIONS);
+    G::scene().handleTouchMoveEvent(event, globalPos, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Touch::touchUpEvent(const LTouchUpEvent &event)
 {
-    G::scene().handleTouchUpEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handleTouchUpEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Touch::touchFrameEvent(const LTouchFrameEvent &event)
 {
-    G::scene().handleTouchFrameEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handleTouchFrameEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Touch::touchCancelEvent(const LTouchCancelEvent &event)
 {
-    G::scene().handleTouchCancelEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handleTouchCancelEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }

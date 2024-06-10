@@ -2,7 +2,7 @@
 #define SETTINGS_H
 
 /*
- * SCREEN SHARING
+ * SCREENCASTING
  */
 
 /* If defined, only xdg-desktop-portal-wlr will be allowed to capture screens.
@@ -45,5 +45,18 @@
  */
 
 #define SETTINGS_DISABLE_WHILE_TYPING false
+
+/* These flags determine how the scene handles input events.
+ * If no flags are set, the scene will simply dispatch events to the appropriate views.
+ *
+ * For example, if the WaylandEvents flag is set, the scene will also send input events
+ * to clients using the default LPointer, LKeyboard or LTouch implementation.
+ *
+ * If you want to handle client events yourself while still dispatching events to views,
+ * remove all flags.
+ *
+ * Note: The AuxFunc flag adds the Ctrl + Shift + Esc shortcut to quit. See Keyboard.
+ */
+#define SETTINGS_SCENE_EVENT_OPTIONS LScene::WaylandEvents | LScene::AuxFunc | LScene::PointerConstraints
 
 #endif // SETTINGS_H

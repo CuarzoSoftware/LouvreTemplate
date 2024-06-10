@@ -2,7 +2,7 @@
 #include <LInputDevice.h>
 #include <libinput.h>
 #include "Seat.h"
-#include "Settings.h"
+#include "../utils/Settings.h"
 
 void Seat::enabledChanged()
 {

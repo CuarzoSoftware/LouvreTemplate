@@ -1,8 +1,9 @@
-#include "ToplevelDecorationView.h"
+#include "SSD.h"
 #include "../roles/ToplevelRole.h"
 #include "../Surface.h"
+#include "../utils/Settings.h"
 
-ToplevelDecorationView::ToplevelDecorationView(ToplevelRole *toplevel) noexcept :
+SSD::SSD(ToplevelRole *toplevel) noexcept :
     LLayerView(),
     toplevel(toplevel)
 {
@@ -21,7 +22,7 @@ ToplevelDecorationView::ToplevelDecorationView(ToplevelRole *toplevel) noexcept 
     updateGeometry();
 }
 
-ToplevelDecorationView::~ToplevelDecorationView()
+SSD::~SSD()
 {
     toplevel->setExtraGeometry({
         .left = 0,
@@ -34,7 +35,7 @@ ToplevelDecorationView::~ToplevelDecorationView()
     toplevel->surf()->view.enableCustomPos(false);
 }
 
-void ToplevelDecorationView::updateGeometry() noexcept
+void SSD::updateGeometry() noexcept
 {
     const LMargins extraGeo { toplevel->extraGeometry() };
     setSize(toplevel->windowGeometry().size());
@@ -75,8 +76,8 @@ void ToplevelDecorationView::updateGeometry() noexcept
         {
             if (child->type() == LView::Type::SolidColorType)
             {
-                static_cast<SolidColorButtonView*>(child)->setColor((const LRGBF&) color);
-                static_cast<SolidColorButtonView*>(child)->setOpacity(color.a);
+                static_cast<SSDTouchable*>(child)->setColor((const LRGBF&) color);
+                static_cast<SSDTouchable*>(child)->setOpacity(color.a);
             }
         }
     }
@@ -84,12 +85,12 @@ void ToplevelDecorationView::updateGeometry() noexcept
     prevState = toplevel->state();
 }
 
-const LPoint &ToplevelDecorationView::nativePos() const noexcept
+const LPoint &SSD::nativePos() const noexcept
 {
     return toplevel->rolePos();
 }
 
-bool ToplevelDecorationView::nativeMapped() const noexcept
+bool SSD::nativeMapped() const noexcept
 {
     return toplevel->surface()->mapped();
 }

@@ -8,13 +8,13 @@
 #include <LTouch.h>
 #include <LTouchPoint.h>
 
-#include "SolidColorButtonView.h"
-#include "ToplevelDecorationView.h"
+#include "SSDTouchable.h"
+#include "SSD.h"
 #include "../roles/ToplevelRole.h"
-#include "../Global.h"
-#include "../Assets.h"
+#include "../utils/Global.h"
+#include "../utils/Assets.h"
 
-SolidColorButtonView::SolidColorButtonView(ToplevelDecorationView *ssd, ButtonType buttonType, LBitset<LEdge> edge, LView *parent) noexcept :
+SSDTouchable::SSDTouchable(SSD *ssd, ButtonType buttonType, LBitset<LEdge> edge, LView *parent) noexcept :
     LSolidColorView(parent),
     edge(edge),
     buttonType(buttonType),
@@ -37,7 +37,7 @@ SolidColorButtonView::SolidColorButtonView(ToplevelDecorationView *ssd, ButtonTy
         setUserData(G::SSDEdge);
 }
 
-void SolidColorButtonView::pointerButtonEvent(const LPointerButtonEvent &event)
+void SSDTouchable::pointerButtonEvent(const LPointerButtonEvent &event)
 {
     seat()->pointer()->setFocus(ssd->toplevel->surface());
     seat()->keyboard()->setFocus(ssd->toplevel->surface());
@@ -84,21 +84,21 @@ void SolidColorButtonView::pointerButtonEvent(const LPointerButtonEvent &event)
     }
 }
 
-void SolidColorButtonView::pointerEnterEvent(const LPointerEnterEvent &/*event*/)
+void SSDTouchable::pointerEnterEvent(const LPointerEnterEvent &/*event*/)
 {
     // Button
     if (edge == 0)
         setColorFactor({0.5f, 0.5f, 0.5f, 1.f});
 }
 
-void SolidColorButtonView::pointerLeaveEvent(const LPointerLeaveEvent &/*event*/)
+void SSDTouchable::pointerLeaveEvent(const LPointerLeaveEvent &/*event*/)
 {
     // Button
     if (edge == 0)
         setColorFactor({1.f, 1.f, 1.f, 1.f});
 }
 
-void SolidColorButtonView::pointerMoveEvent(const LPointerMoveEvent &/*event*/)
+void SSDTouchable::pointerMoveEvent(const LPointerMoveEvent &/*event*/)
 {
     if (!seat()->toplevelMoveSessions().empty() || !seat()->toplevelResizeSessions().empty() || ssd->toplevel->fullscreen())
         return;
@@ -127,7 +127,7 @@ void SolidColorButtonView::pointerMoveEvent(const LPointerMoveEvent &/*event*/)
         cursor()->setCursor(G::assets()->cursors.resizeBR.get());
 }
 
-void SolidColorButtonView::touchDownEvent(const LTouchDownEvent &event)
+void SSDTouchable::touchDownEvent(const LTouchDownEvent &event)
 {
     auto tp = seat()->touch()->createOrGetTouchPoint(event);
     tp->sendDownEvent(event, ssd->toplevel->surface());
@@ -141,7 +141,7 @@ void SolidColorButtonView::touchDownEvent(const LTouchDownEvent &event)
     tp->sendDownEvent(event, nullptr);
 }
 
-bool SolidColorButtonView::nativeMapped() const noexcept
+bool SSDTouchable::nativeMapped() const noexcept
 {
     return !ssd->toplevel->fullscreen();
 }

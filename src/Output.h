@@ -2,6 +2,7 @@
 #define OUTPUT_H
 
 #include <LOutput.h>
+#include <LSolidColorView.h>
 
 using namespace Louvre;
 
@@ -31,7 +32,9 @@ class Output final : public LOutput
 public:
     using LOutput::LOutput;
 
-private:
+    /* For the example fade-in animation */
+    LSolidColorView fadeInView { {0.f, 0.f, 0.f } };
+
     /* Here you can initialize OpenGL ES 2.0 rendering toolkits, shaders, etc., if needed,
      * or use the painter() utility. We use LScene instead, which efficiently renders views for you,
      * repainting only damaged areas, preventing rendering of content behind opaque surfaces, etc.
@@ -62,6 +65,9 @@ private:
      * resources you may have created.
      */
     void uninitializeGL() override;
+
+    void setGammaRequest(LClient *client, const LGammaTable *gamma) override;
+    void availableGeometryChanged() override;
 };
 
 #endif // OUTPUT_H

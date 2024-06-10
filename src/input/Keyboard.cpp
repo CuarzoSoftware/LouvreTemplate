@@ -2,9 +2,9 @@
 #include <LSessionLockManager.h>
 #include <LLauncher.h>
 #include "Keyboard.h"
-#include "../Global.h"
+#include "../utils/Global.h"
 #include "../scene/Scene.h"
-#include "../Settings.h"
+#include "../utils/Settings.h"
 
 Keyboard::Keyboard(const void *params) noexcept : LKeyboard(params)
 {
@@ -23,7 +23,7 @@ void Keyboard::keyEvent(const LKeyboardKeyEvent &event)
 {
     /* The AuxFunc flag adds the Ctrl + Shift + ESC shortcut to quit, ensure
      * to add a way to exit if you remove it */
-    G::scene().handleKeyboardKeyEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handleKeyboardKeyEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 
     /* Launches a session lock client */
     if (sessionLockManager()->state() != LSessionLockManager::Locked

@@ -2,23 +2,29 @@
 #define TOPLEVELROLE_H
 
 #include <LToplevelRole.h>
-#include "../scene/ToplevelDecorationView.h"
+#include "../scene/SSD.h"
 
 using namespace Louvre;
 
 class Surface;
 
+/*
+ * This represents a standard desktop window that supports typical operations like minimizing, maximizing, setting fullscreen, etc.
+ */
 class ToplevelRole final : public LToplevelRole
 {
 public:
-    using LToplevelRole::LToplevelRole;
+    ToplevelRole(const void *params) noexcept;
 
-    Surface *surf() noexcept
-    {
-        return (Surface*)surface();
-    }
+    /* Please refer to the documentation to explore all available
+     * virtual methods that can be overridden. */
 
-    std::unique_ptr<ToplevelDecorationView> ssd;
+    Surface *surf() noexcept { return (Surface*)surface(); }
+
+    /* Server-side decoration view */
+    std::unique_ptr<SSD> ssd;
+
+    const LPoint &rolePos() const override;
 
     void configureRequest() override;
     void startMoveRequest(const LEvent &triggeringEvent) override;

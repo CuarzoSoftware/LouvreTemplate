@@ -3,9 +3,10 @@
 #include <LClientCursor.h>
 #include <LClient.h>
 #include "Pointer.h"
-#include "../Global.h"
+#include "../utils/Global.h"
+#include "../utils/Settings.h"
 #include "../scene/Scene.h"
-#include "../Assets.h"
+#include "../utils/Assets.h"
 
 Pointer::Pointer(const void *params) noexcept : LPointer(params)
 {
@@ -15,7 +16,7 @@ Pointer::Pointer(const void *params) noexcept : LPointer(params)
 
 void Pointer::pointerMoveEvent(const LPointerMoveEvent &event)
 {
-    G::scene().handlePointerMoveEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerMoveEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 
     if (seat()->dnd()->dragging() && seat()->dnd()->triggeringEvent().type() != LEvent::Type::Touch)
     {
@@ -52,52 +53,52 @@ void Pointer::pointerMoveEvent(const LPointerMoveEvent &event)
 
 void Pointer::pointerButtonEvent(const LPointerButtonEvent &event)
 {
-    G::scene().handlePointerButtonEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerButtonEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerScrollEvent(const LPointerScrollEvent &event)
 {
-    G::scene().handlePointerScrollEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerScrollEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerSwipeBeginEvent(const LPointerSwipeBeginEvent &event)
 {
-    G::scene().handlePointerSwipeBeginEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerSwipeBeginEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerSwipeUpdateEvent(const LPointerSwipeUpdateEvent &event)
 {
-    G::scene().handlePointerSwipeUpdateEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerSwipeUpdateEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerSwipeEndEvent(const LPointerSwipeEndEvent &event)
 {
-    G::scene().handlePointerSwipeEndEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerSwipeEndEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerPinchBeginEvent(const LPointerPinchBeginEvent &event)
 {
-    G::scene().handlePointerPinchBeginEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerPinchBeginEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerPinchUpdateEvent(const LPointerPinchUpdateEvent &event)
 {
-    G::scene().handlePointerPinchUpdateEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerPinchUpdateEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerPinchEndEvent(const LPointerPinchEndEvent &event)
 {
-    G::scene().handlePointerPinchEndEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerPinchEndEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerHoldBeginEvent(const LPointerHoldBeginEvent &event)
 {
-    G::scene().handlePointerHoldBeginEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerHoldBeginEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::pointerHoldEndEvent(const LPointerHoldEndEvent &event)
 {
-    G::scene().handlePointerHoldEndEvent(event, SCENE_EVENT_OPTIONS);
+    G::scene().handlePointerHoldEndEvent(event, SETTINGS_SCENE_EVENT_OPTIONS);
 }
 
 void Pointer::setCursorRequest(const LClientCursor &clientCursor)

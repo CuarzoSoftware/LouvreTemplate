@@ -11,7 +11,8 @@ class ToplevelRole;
 class Surface final : public LSurface
 {
 public:
-    Surface(const void *params) noexcept;
+    using LSurface::LSurface;
+
     SurfaceView view { this };
 
     ToplevelRole *tl() noexcept
@@ -24,6 +25,11 @@ public:
     void roleChanged() override;
     void layerChanged() override;
     void orderChanged() override;
+    void mappingChanged() override;
+    void minimizedChanged() override;
+
+    /* Please refer to the documentation to explore all available
+     * virtual methods that can be overridden. */
 };
 
 #endif // SURFACE_H

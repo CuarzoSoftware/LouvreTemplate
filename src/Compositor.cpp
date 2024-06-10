@@ -3,18 +3,30 @@
 #include <LTimer.h>
 #include <LGlobal.h>
 #include <LClient.h>
+
 #include "Compositor.h"
 #include "Output.h"
+#include "Client.h"
 #include "Surface.h"
-#include "Settings.h"
-#include "Global.h"
-#include "Seat.h"
+#include "SessionLockManager.h"
 
 #include "roles/ToplevelRole.h"
+#include "roles/PopupRole.h"
+#include "roles/LayerRole.h"
+#include "roles/SubsurfaceRole.h"
+#include "roles/SessionLockRole.h"
+#include "roles/CursorRole.h"
+#include "roles/DNDIconRole.h"
 
+#include "utils/Settings.h"
+#include "utils/Global.h"
+
+#include "input/Seat.h"
 #include "input/Pointer.h"
 #include "input/Keyboard.h"
 #include "input/Touch.h"
+#include "input/Clipboard.h"
+#include "input/DND.h"
 
 void Compositor::initialized()
 {
@@ -64,11 +76,29 @@ LFactoryObject *Compositor::createObjectRequest(LFactoryObject::Type objectType,
     if (objectType == LFactoryObject::Type::LOutput)
         return new Output(params);
 
+    if (objectType == LFactoryObject::Type::LClient)
+        return new Client(params);
+
     if (objectType == LFactoryObject::Type::LSurface)
         return new Surface(params);
 
     if (objectType == LFactoryObject::Type::LToplevelRole)
         return new ToplevelRole(params);
+
+    if (objectType == LFactoryObject::Type::LPopupRole)
+        return new PopupRole(params);
+
+    if (objectType == LFactoryObject::Type::LSubsurfaceRole)
+        return new SubsurfaceRole(params);
+
+    if (objectType == LFactoryObject::Type::LSessionLockRole)
+        return new SessionLockRole(params);
+
+    if (objectType == LFactoryObject::Type::LCursorRole)
+        return new CursorRole(params);
+
+    if (objectType == LFactoryObject::Type::LDNDIconRole)
+        return new DNDIconRole(params);
 
     if (objectType == LFactoryObject::Type::LSeat)
         return new Seat(params);
@@ -82,13 +112,25 @@ LFactoryObject *Compositor::createObjectRequest(LFactoryObject::Type objectType,
     if (objectType == LFactoryObject::Type::LTouch)
         return new Touch(params);
 
+    if (objectType == LFactoryObject::Type::LClipboard)
+        return new Clipboard(params);
+
+    if (objectType == LFactoryObject::Type::LDND)
+        return new DND(params);
+
+    if (objectType == LFactoryObject::Type::LSessionLockManager)
+        return new SessionLockManager(params);
+
     /* Tells Louvre to use the default class for the given LFactoryObject type */
     return nullptr;
 }
 
 void Compositor::onAnticipatedObjectDestruction(LFactoryObject *object)
 {
-    L_UNUSED(object)
+    if (object->factoryObjectType() == LFactoryObject::Type::LClient)
+    {
+        /* Bye bye client */
+    }
 
     /* Do not delete the object! */
 }

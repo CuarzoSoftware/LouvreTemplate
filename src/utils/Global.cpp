@@ -1,5 +1,5 @@
 #include "Global.h"
-#include "Compositor.h"
+#include "../Compositor.h"
 
 Scene &G::scene() noexcept
 {

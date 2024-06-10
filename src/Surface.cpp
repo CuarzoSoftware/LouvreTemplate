@@ -1,12 +1,7 @@
-#include "Global.h"
 #include "Surface.h"
+#include "utils/Global.h"
 #include "scene/LayerView.h"
 #include "roles/ToplevelRole.h"
-
-Surface::Surface(const void *params) noexcept : LSurface(params)
-{
-
-}
 
 LView *Surface::getView() noexcept
 {
@@ -42,4 +37,22 @@ void Surface::orderChanged()
 
     /* Re-insert the view only if there is a previous surface within the same layer */
     getView()->insertAfter((prev && prev->layer() == layer()) ? prev->getView() : nullptr);
+}
+
+void Surface::mappingChanged()
+{
+    /* Refer to the default implementation in the documentation. */
+    LSurface::mappingChanged();
+}
+
+void Surface::minimizedChanged()
+{
+    if (minimized())
+    {
+        /* You could hide the view, create a thumbnail, etc.. it's up to you */
+    }
+    else
+    {
+
+    }
 }

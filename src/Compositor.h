@@ -1,9 +1,11 @@
 #include <LCompositor.h>
 #include <LLayerView.h>
 #include <LSceneView.h>
+
 #include "scene/Scene.h"
-#include "Assets.h"
-#include "Systemd.h"
+#include "utils/Assets.h"
+#include "utils/Systemd.h"
+
 #include <memory>
 
 using namespace Louvre;

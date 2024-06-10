@@ -1,7 +1,7 @@
 #include <LLog.h>
 #include "Systemd.h"
 #include "Global.h"
-#include "Compositor.h"
+#include "../Compositor.h"
 
 using namespace Louvre;
 

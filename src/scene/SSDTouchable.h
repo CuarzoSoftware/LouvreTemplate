@@ -7,11 +7,11 @@
 
 using namespace Louvre;
 
-class ToplevelDecorationView;
+class SSD;
 
 /* Used for toplevel decoration edges, titlebar and buttons */
 
-class SolidColorButtonView final : public LSolidColorView
+class SSDTouchable final : public LSolidColorView
 {
 public:
 
@@ -22,12 +22,12 @@ public:
         Maximize
     };
 
-    SolidColorButtonView(ToplevelDecorationView *ssd, ButtonType buttonType, LBitset<LEdge> edge, LView *parent = nullptr) noexcept;
+    SSDTouchable(SSD *ssd, ButtonType buttonType, LBitset<LEdge> edge, LView *parent = nullptr) noexcept;
 
     // If 0 == Titlebar button, Top == Titlebar, else window edges
     LBitset<LEdge> edge;
     ButtonType buttonType;
-    LWeak<ToplevelDecorationView> ssd;
+    LWeak<SSD> ssd;
 
     void pointerButtonEvent(const LPointerButtonEvent &event) override;
     void pointerEnterEvent(const LPointerEnterEvent &event) override;
