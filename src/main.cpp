@@ -10,7 +10,7 @@ int main(int, char *[])
     setenv("LOUVRE_DEBUG", "1", 0);
 
     /* Enable SRM fatal logs */
-    setenv("SRM_DEBUG", "3", 0);
+    setenv("SRM_DEBUG", "1", 0);
 
     /* Enable triple buffering when using the DRM backend (provides a smoother experience but consumes more CPU) */
     setenv("SRM_RENDER_MODE_ITSELF_FB_COUNT", "3", 0);
