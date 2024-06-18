@@ -28,8 +28,10 @@ SSDTouchable::SSDTouchable(SSD *ssd, ButtonType buttonType, LBitset<LEdge> edge,
     {
         if (buttonType == Close)
             setColor({1.f, 0.f, 0.f});
-        else
+        else if (buttonType == Maximize)
             setColor({0.f, 1.f, 0.f});
+        else // Minimize
+            setColor({1.f, 1.f, 0.f});
 
         enableParentOpacity(false);
     }
@@ -50,13 +52,15 @@ void SSDTouchable::pointerButtonEvent(const LPointerButtonEvent &event)
         {
             if (buttonType == Close)
                 ssd->toplevel->close();
-            else // Maximize
+            else if (buttonType == Maximize)
             {
                 if (ssd->toplevel->maximized())
                     ssd->toplevel->unsetMaximizedRequest();
                 else
                     ssd->toplevel->setMaximizedRequest();
             }
+            else // Minimize
+                ssd->toplevel->setMinimizedRequest();
 
             setColorFactor({1.f, 1.f, 1.f, 1.f});
         }

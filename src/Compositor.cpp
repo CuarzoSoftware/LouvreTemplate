@@ -60,6 +60,9 @@ void Compositor::initialized()
 
     /* Launches Waybar */;
     LLauncher::launch("waybar");
+
+    /* Launches some bottom panel */
+    LLauncher::launch("sfwbar");
 }
 
 void Compositor::uninitialized()

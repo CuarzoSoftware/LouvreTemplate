@@ -9,6 +9,14 @@ ToplevelRole::ToplevelRole(const void *params) noexcept : LToplevelRole(params)
     moveSession().setOnBeforeUpdateCallback([](LToplevelMoveSession *session)
     {
         LMargins constraints { session->toplevel()->calculateConstraintsFromOutput(cursor()->output()) };
+
+        if (constraints.bottom != LEdgeDisabled)
+        {
+            constraints.bottom += session->toplevel()->windowGeometry().size().h()
+                + session->toplevel()->extraGeometry().top
+                + session->toplevel()->extraGeometry().bottom
+                - 50; // Prevents it from end up unreachable behind a bottom panel
+        }
         session->setConstraints(constraints);
     });
 
@@ -49,7 +57,7 @@ void ToplevelRole::configureRequest()
 
     configureSize(0,0);
     configureState(pendingConfiguration().state | Activated);
-    configureCapabilities(WindowMenuCap | FullscreenCap | MaximizeCap | FullscreenCap);
+    configureCapabilities(WindowMenuCap | FullscreenCap | MaximizeCap | MinimizeCap);
 }
 
 void ToplevelRole::startMoveRequest(const LEvent &triggeringEvent)
@@ -90,7 +98,7 @@ void ToplevelRole::unsetFullscreenRequest()
 
 void ToplevelRole::setMinimizedRequest()
 {
-    /* surface()->setMinimized(true) */
+    surface()->setMinimized(true);
 }
 
 void ToplevelRole::showWindowMenuRequest(const LEvent &triggeringEvent, Int32 x, Int32 y)

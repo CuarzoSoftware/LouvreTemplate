@@ -30,6 +30,7 @@ public:
     SSDTouchable titlebar   { this, SSDTouchable::Edge, LEdgeTop, this };
     SSDTouchable close      { this, SSDTouchable::Close, 0, &titlebar };
     SSDTouchable maximize   { this, SSDTouchable::Maximize, 0, &titlebar };
+    SSDTouchable minimize   { this, SSDTouchable::Minimize, 0, &titlebar };
 
     // Edges / corners
     SSDTouchable L  { this, SSDTouchable::Edge, LEdgeLeft, this };

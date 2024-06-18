@@ -19,7 +19,8 @@ public:
     {
         Edge,
         Close,
-        Maximize
+        Maximize,
+        Minimize
     };
 
     SSDTouchable(SSD *ssd, ButtonType buttonType, LBitset<LEdge> edge, LView *parent = nullptr) noexcept;

@@ -49,10 +49,24 @@ void Surface::minimizedChanged()
 {
     if (minimized())
     {
-        /* You could hide the view, create a thumbnail, etc.. it's up to you */
+        if (tl())
+            tl()->configureState(tl()->pendingConfiguration().state & ~LToplevelRole::Activated);
+
+        view.setVisible(false);
+
+        if (getView() != &view)
+            getView()->setVisible(false);
     }
     else
     {
+        if (tl())
+            tl()->configureState(tl()->pendingConfiguration().state | LToplevelRole::Activated);
 
+        view.setVisible(true);
+
+        if (getView() != &view)
+            getView()->setVisible(true);
+
+        raise();
     }
 }

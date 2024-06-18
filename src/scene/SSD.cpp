@@ -18,6 +18,7 @@ SSD::SSD(ToplevelRole *toplevel) noexcept :
 
     close.setSize(buttonsSize);
     maximize.setSize(buttonsSize);
+    minimize.setSize(buttonsSize);
 
     updateGeometry();
 }
@@ -45,6 +46,7 @@ void SSD::updateGeometry() noexcept
 
     close.setPos(extraGeo.left, (extraGeo.top - close.size().h()) / 2);
     maximize.setPos(close.nativePos().x() + close.size().w() + extraGeo.left, close.nativePos().y());
+    minimize.setPos(maximize.nativePos().x() + maximize.size().w() + extraGeo.left, maximize.nativePos().y());
 
     L.setSize(extraGeo.left, size().h());
     L.setPos(-extraGeo.left, 0);
