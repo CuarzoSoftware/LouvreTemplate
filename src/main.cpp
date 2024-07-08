@@ -12,14 +12,22 @@ int main(int, char *[])
     /* Enable SRM fatal logs */
     setenv("SRM_DEBUG", "1", 0);
 
-    /* Enable triple buffering when using the DRM backend (provides a smoother experience but consumes more CPU) */
-    setenv("SRM_RENDER_MODE_ITSELF_FB_COUNT", "3", 0);
+    /* If not set, the iGPU will be used as the primary GPU. */
+    // setenv("SRM_ALLOCATOR_DEVICE", "/dev/dri/card1", 0);
 
-    /* Same but for discrete GPUs */
-    setenv("SRM_RENDER_MODE_DUMB_FB_COUNT", "3", 0);
+    /* Enable triple buffering when using the DRM backend (provides a smoother experience but consumes more CPU) */
+    // setenv("SRM_RENDER_MODE_ITSELF_FB_COUNT", "3", 0);
+
+    /* Same but for non-primary GPUs */
+    // setenv("SRM_RENDER_MODE_PRIME_FB_COUNT", "3", 0);
+    // setenv("SRM_RENDER_MODE_DUMB_FB_COUNT", "3", 0);
+    // setenv("SRM_RENDER_MODE_CPU_FB_COUNT", "3", 0);
 
     /* Force OpenGL buffer allocation instead of GBM when using the DRM backend */
-    setenv("SRM_FORCE_GL_ALLOCATION", "1", 0);
+    // setenv("SRM_FORCE_GL_ALLOCATION", "1", 0);
+
+    /* The legacy DRM API supported async hw cursor updates */
+    // setenv("SRM_FORCE_LEGACY_API", "1", 0);
 
     /* Enable Wayland for Firefox */
     setenv("MOZ_ENABLE_WAYLAND", "1", 1);

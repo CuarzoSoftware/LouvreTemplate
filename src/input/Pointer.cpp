@@ -27,7 +27,10 @@ void Pointer::pointerMoveEvent(const LPointerMoveEvent &event)
         else if (seat()->dnd()->action() == LDND::NoAction)
             cursor()->setCursor(G::assets()->cursors.denied.get());
 
-        //cursor()->setCursor(seat()->dnd()->origin()->client()->lastCursorRequest());
+        /*
+         * Some clients update the cursor during DND sessions, but not always
+         * cursor()->setCursor(seat()->dnd()->origin()->client()->lastCursorRequest()); */
+
         return;
     }
 
@@ -42,7 +45,7 @@ void Pointer::pointerMoveEvent(const LPointerMoveEvent &event)
     if (!G::scene().pointerFocus().empty() && G::scene().pointerFocus().front()->userData() == G::SSDEdge)
         return;
 
-    if (focus())
+    if (focus() && focus()->layer() != Louvre::LLayerBackground)
         cursor()->setCursor(focus()->client()->lastCursorRequest());
     else
     {

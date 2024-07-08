@@ -17,11 +17,11 @@ using namespace Louvre;
  *
  * Outputs can also be hot-plugged, see Seat::outputPlugged()/outputUnplugged() for more details.
  *
- * When initialized, a new rendering thread is created from which the GL events are triggered.
+ * When initialized, a new rendering thread is created from which the xxxGL() events are triggered.
  * OpenGL rendering must only be performed within a paintGL() event and nowhere else.
  * The rendering thread blocks until repaint() is called, which later triggers the paintGL() event.
  * Calling repaint() multiple times only unlocks the rendering thread once, so within or after a
- * paintGL() event, repaint() must be called to unlock the thread again.
+ * paintGL() event, repaint() must be called again to unlock the thread once more.
  *
  * Note: When views or surfaces change, they typically call repaint() automatically on the outputs
  * where they are visible. However, there are cases where it must be called manually.

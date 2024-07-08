@@ -124,7 +124,7 @@ LFactoryObject *Compositor::createObjectRequest(LFactoryObject::Type objectType,
     if (objectType == LFactoryObject::Type::LSessionLockManager)
         return new SessionLockManager(params);
 
-    /* Tells Louvre to use the default class for the given LFactoryObject type */
+    /* Returning nullptr tells Louvre to use the default class for the given LFactoryObject type */
     return nullptr;
 }
 
