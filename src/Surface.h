@@ -43,6 +43,7 @@ public:
     }
 
     LView *getView() noexcept;
+    bool hasMappedChildSurface() const noexcept;
 
     void roleChanged() override;
     void layerChanged() override;

@@ -11,6 +11,15 @@ LView *Surface::getView() noexcept
     return &view;
 }
 
+bool Surface::hasMappedChildSurface() const noexcept
+{
+    for (LSurface *child : children())
+        if (child->mapped())
+            return true;
+
+    return false;
+}
+
 void Surface::roleChanged()
 {
     /* When a client assigns the LCursorRole to a surface, we use LCursor to render it

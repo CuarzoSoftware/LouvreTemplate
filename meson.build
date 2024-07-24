@@ -9,7 +9,7 @@ project(
     ]
 )
  
-louvre_dep = dependency('Louvre', version : '>=2.0.0')
+louvre_dep = dependency('Louvre', version : '>=2.4.0')
 pixman_dep = dependency('pixman-1')
 libinput_dep = dependency('libinput')
 sdbus = dependency(['libsystemd', 'libelogind', 'basu'])

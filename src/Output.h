@@ -4,6 +4,8 @@
 #include <LOutput.h>
 #include <LSolidColorView.h>
 
+class Surface;
+
 using namespace Louvre;
 
 /* The graphic backend creates an instance of this class for each available
@@ -31,9 +33,6 @@ class Output final : public LOutput
 {
 public:
     using LOutput::LOutput;
-
-    /* For the example fade-in animation */
-    LSolidColorView fadeInView { {0.f, 0.f, 0.f } };
 
     /* Here you can initialize OpenGL ES 2.0 rendering toolkits, shaders, etc., if needed,
      * or use the painter() utility. We use LScene instead, which efficiently renders views for you,
@@ -68,6 +67,12 @@ public:
 
     void setGammaRequest(LClient *client, const LGammaTable *gamma) override;
     void availableGeometryChanged() override;
+
+    /* For the example fade-in animation */
+    LSolidColorView fadeInView { {0.f, 0.f, 0.f } };
+
+    Surface *searchFullscreenSurface() const noexcept;
+    bool tryDirectScanout(Surface *surface) noexcept;
 };
 
 #endif // OUTPUT_H
