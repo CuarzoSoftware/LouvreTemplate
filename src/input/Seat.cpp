@@ -69,6 +69,13 @@ void Seat::configureInputDevices() noexcept
 
         dev = static_cast<libinput_device*>(device->nativeHandle());
 
-        libinput_device_config_dwt_set_enabled(dev, (libinput_config_dwt_state)SETTINGS_DISABLE_WHILE_TYPING);
+        // Disable while typing
+        libinput_device_config_dwt_set_enabled(dev, LIBINPUT_CONFIG_DWT_DISABLED);
+
+        // Disable touchpad click areas
+        libinput_device_config_click_set_method(dev, LIBINPUT_CONFIG_CLICK_METHOD_CLICKFINGER);
+
+        // Enable natural scrolling
+        libinput_device_config_scroll_set_natural_scroll_enabled(dev, 1);
     }
 }

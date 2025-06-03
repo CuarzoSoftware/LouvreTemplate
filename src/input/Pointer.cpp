@@ -8,11 +8,7 @@
 #include "../scene/Scene.h"
 #include "../utils/Assets.h"
 
-Pointer::Pointer(const void *params) noexcept : LPointer(params)
-{
-    enableNaturalScrollingX(false);
-    enableNaturalScrollingY(false);
-}
+Pointer::Pointer(const void *params) noexcept : LPointer(params) {}
 
 void Pointer::pointerMoveEvent(const LPointerMoveEvent &event)
 {
