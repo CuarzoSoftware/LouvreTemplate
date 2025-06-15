@@ -20,7 +20,7 @@ bool Surface::hasMappedChildSurface() const noexcept
     return false;
 }
 
-void Surface::roleChanged()
+void Surface::roleChanged(Louvre::LBaseSurfaceRole*)
 {
     /* When a client assigns the LCursorRole to a surface, we use LCursor to render it
      * instead of the scene, so we hide the view here.
