@@ -13,6 +13,7 @@ louvre_dep = dependency('Louvre', version : '>=2.18.1')
 pixman_dep = dependency('pixman-1')
 libinput_dep = dependency('libinput')
 sdbus = dependency(['libsystemd', 'libelogind', 'basu'])
+wayland_server_dep  = dependency('wayland-server')
  
 # List C/C++ source files stored in ./src
 sources = run_command('find', './src', '-type', 'f', '-name', '*[.c,.cpp,.h,.hpp]', check : false).stdout().strip().split('\n')
@@ -24,6 +25,7 @@ executable(
         louvre_dep,
         pixman_dep,
         libinput_dep,
-        sdbus
+        sdbus,
+        wayland_server_dep
     ],
     install : true)
