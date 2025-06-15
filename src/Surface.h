@@ -45,7 +45,7 @@ public:
     LView *getView() noexcept;
     bool hasMappedChildSurface() const noexcept;
 
-    void roleChanged() override;
+    void roleChanged(Louvre::LBaseSurfaceRole* prevRole) override;
     void layerChanged() override;
     void orderChanged() override;
     void mappingChanged() override;
